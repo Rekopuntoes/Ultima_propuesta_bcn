@@ -38,7 +38,7 @@ section{padding-block:clamp(56px,8vw,96px)}
 .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--bg)}
 
 /* HERO */
-.hero{background:var(--brown);color:#fbefe4;padding-block:clamp(40px,6vw,72px) 0;overflow:hidden}
+.hero{background:var(--brown);color:#fbefe4;padding-block:clamp(24px,3vw,36px) 0;overflow:hidden}
 .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:end}
 .hero-copy{display:grid;gap:22px;padding-bottom:clamp(40px,6vw,72px);min-width:0}
 .hero h1{font-size:clamp(46px,7.4vw,92px);font-weight:800;letter-spacing:-.035em;color:#fff}
@@ -212,6 +212,11 @@ figure{margin:0}
 .next li::before{content:counter(n,decimal-leading-zero);font:600 13px var(--f-mono);color:var(--orange)}
 .refs{font-size:13px;color:var(--muted);display:grid;gap:4px;margin-top:20px}
 footer{background:var(--brown);color:#d9bfae;padding-block:28px;font-size:13.5px}
+footer .wrap{display:flex;align-items:center;gap:24px}
+footer .wrap img{height:32px;width:auto;flex:none}
+.hero .wrap.hero-brand{display:block;margin-bottom:clamp(28px,4vw,48px)}
+.hero-brand img{display:block;height:clamp(34px,4vw,44px);width:auto}
+@media (max-width:640px){footer .wrap{flex-direction:column;align-items:flex-start;gap:14px}}
 
 @media (max-width:900px){
   .hero .wrap,.concept-grid,.reto{grid-template-columns:1fr}
@@ -246,6 +251,7 @@ footer{background:var(--brown);color:#d9bfae;padding-block:28px;font-size:13.5px
 </style>
 
 <header class="hero">
+  <div class="wrap hero-brand"><img src="assets/logo-samplia.png" alt="Samplia"></div>
   <div class="wrap">
     <div class="hero-copy">
       <span class="eyebrow" style="color:#ff8a45">Samplia Barcelona · Rambla de Catalunya, 30 · Lanzamiento abril 2027</span>
@@ -894,4 +900,4 @@ footer{background:var(--brown);color:#d9bfae;padding-block:28px;font-size:13.5px
 </section>
 </main>
 
-<footer><div class="wrap">Propuesta creativa Samplia Barcelona para Ultima Pure Fresh · Renders 3D orientativos sobre el modelo del local · Simulaciones fotorrealistas generadas con IA a partir de esos renders (textos y logotipos aproximados) · Logotipo de ultima-affinity.com y visuales de producto del material de marca (no definitivos) · Noviembre 2026</div></footer>
+<footer><div class="wrap"><img src="assets/logo-samplia.png" alt="Samplia"><span>Propuesta creativa Samplia Barcelona para Ultima Pure Fresh · Renders 3D orientativos sobre el modelo del local · Simulaciones fotorrealistas generadas con IA a partir de esos renders (textos y logotipos aproximados) · Logotipo de ultima-affinity.com y visuales de producto del material de marca (no definitivos) · Noviembre 2026</span></div></footer>
