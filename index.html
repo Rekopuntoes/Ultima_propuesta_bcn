@@ -1,0 +1,1026 @@
+<title>El Mercat Pure Fresh</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: mercado de barrio. Cada sección es una "parada" con etiqueta de precio; columna de lectura + bandas a sangre; cada propuesta es un dossier con render a ancho completo */
+:root{
+  --bg:#fbf6ef; --surface:#ffffff; --ink:#2e1a12; --muted:#7a5f52; --line:#ead9c8;
+  --brown:#4a2618; --orange:#e2601b; --orange-soft:#fde3d2; --pea:#5c9a2e; --pea-soft:#e3f0d6;
+  --tag:#fff3c4; --tag-ink:#3d2a00; --paper:#ffffff; --plan-ink:#2e1a12; --plan-flow:#e2601b;
+  --f-display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body:"Figtree", "Helvetica Neue", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1c120d; --surface:#271a13; --ink:#f6eadf; --muted:#c3a898; --line:#3f2c21;
+  --brown:#120a07; --orange:#ff7a33; --orange-soft:#4a2414; --pea:#8cc95a; --pea-soft:#24341a;
+  --tag:#4a3d10; --tag-ink:#ffe9a3; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1c120d; --surface:#271a13; --ink:#f6eadf; --muted:#c3a898; --line:#3f2c21;
+  --brown:#120a07; --orange:#ff7a33; --orange-soft:#4a2414; --pea:#8cc95a; --pea-soft:#24341a;
+  --tag:#4a3d10; --tag-ink:#ffe9a3; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16.5px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(30px,4.4vw,48px);font-weight:800;letter-spacing:-.02em}
+h3{font-size:clamp(22px,2.6vw,28px);font-weight:700;letter-spacing:-.01em}
+h4{font-size:17px;font-weight:700}
+p{margin:0}
+.lede{font-size:clamp(17px,1.6vw,19.5px);color:var(--muted);max-width:66ch}
+.eyebrow{font:600 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+section{padding-block:clamp(56px,8vw,96px)}
+.sec-head{display:grid;gap:14px;margin-bottom:40px;max-width:780px}
+.tag{display:inline-flex;align-items:center;gap:6px;font:600 12px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;background:var(--tag);color:var(--tag-ink);padding:7px 10px 7px 12px;border-radius:3px 12px 12px 3px;white-space:nowrap;justify-self:start}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--bg)}
+
+/* HERO */
+.hero{background:var(--brown);color:#fbefe4;padding-block:clamp(40px,6vw,72px) 0;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:end}
+.hero-copy{display:grid;gap:22px;padding-bottom:clamp(40px,6vw,72px);min-width:0}
+.hero h1{font-size:clamp(46px,7.4vw,92px);font-weight:800;letter-spacing:-.035em;color:#fff}
+.hero h1 em{font-style:normal;color:#ff8a45}
+.hero .lede{color:#e7cdbb}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+.hero-meta span{font:500 12.5px/1 var(--f-mono);border:1px solid rgba(255,255,255,.22);padding:9px 12px;border-radius:999px;color:#f3dccb}
+.hero-img{align-self:end;min-width:0}
+.hero-img img{display:block;width:100%;max-width:440px;margin-left:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45));transform:rotate(4deg) translateY(18px)}
+
+.facts{background:var(--orange);color:#fff}
+.facts .wrap{display:grid;grid-template-columns:repeat(5,1fr)}
+.fact{padding:22px 18px;border-left:1px solid rgba(255,255,255,.25);display:grid;gap:4px;min-width:0}
+.fact:first-child{border-left:0}
+.fact b{font:800 clamp(26px,3vw,36px)/1 var(--f-display);letter-spacing:-.02em}
+.fact span{font-size:13.5px;line-height:1.35;opacity:.92}
+
+/* INDEX */
+.toc{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.toc a{display:grid;gap:10px;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;min-width:0}
+.toc a:hover{border-color:var(--orange)}
+.toc a:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.toc img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;max-width:100%}
+.toc .tx{padding:4px 18px 18px;display:grid;gap:6px}
+.toc .n{font:600 12px var(--f-mono);color:var(--orange)}
+.toc p{font-size:14.5px;color:var(--muted)}
+
+/* INSIGHT */
+.bridge{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:stretch}
+.bridge .side{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.bridge .mid{background:var(--orange-soft);border:2px solid var(--orange);border-radius:14px;padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.bridge .arrow{align-self:center;font:700 22px var(--f-display);color:var(--orange)}
+.bridge small{font:600 11.5px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.bridge ul{margin:0;padding-left:18px;color:var(--muted);font-size:15px}
+.bridge .mid ul{color:var(--ink)}
+
+/* NEURO */
+.chem{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.chem-card{border-radius:18px;padding:clamp(22px,3vw,32px);display:grid;gap:16px;align-content:start;min-width:0}
+.chem-card.oxy{background:var(--orange-soft)} .chem-card.dopa{background:var(--pea-soft)}
+.chem-card .mol{font:800 clamp(34px,4vw,46px)/1 var(--f-display);letter-spacing:-.03em}
+.chem-card.oxy .mol{color:var(--orange)} .chem-card.dopa .mol{color:var(--pea)}
+.chem-card .sub{font-weight:600}
+.trig{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.trig li{display:grid;grid-template-columns:86px 1fr;gap:12px;font-size:15px;line-height:1.45}
+.trig li b{font:600 11px/1.5 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+.trig cite{font-style:normal;color:var(--muted);font-size:13px}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:36px}
+.pr{background:var(--surface);padding:22px;display:grid;gap:8px;align-content:start;min-width:0}
+.pr .n{font:600 12px var(--f-mono);color:var(--orange)}
+.pr p{font-size:15px;color:var(--muted)}
+
+/* TABLES */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:14.5px}
+th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 11.5px/1.3 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td.meter{white-space:nowrap;font-family:var(--f-mono);letter-spacing:2px}
+.m-o{color:var(--orange)} .m-d{color:var(--pea)} .m-f{color:var(--ink)}
+.dim{opacity:.25}
+.verdict{font:600 11px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;padding:6px 8px;border-radius:6px;display:inline-block;white-space:nowrap}
+.v-top{background:var(--orange);color:#fff} .v-in{background:var(--pea-soft);color:var(--pea)} .v-out{background:var(--line);color:var(--muted)}
+
+/* CONCEPT */
+.concept{background:var(--brown);color:#fbefe4}
+.concept .lede{color:#e7cdbb}
+.concept h2{color:#fff}
+.stalls{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.stall{border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:18px;display:grid;gap:8px;align-content:start;min-width:0}
+.stall .awn{height:14px;border-radius:6px 6px 2px 2px;background:repeating-linear-gradient(90deg,#ff8a45 0 18px,#fbefe4 18px 36px);margin:-4px 0 6px}
+.stall h4{color:#fff}
+.stall p{font-size:14.5px;color:#e0c6b4}
+.concept-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.concept-grid img{max-width:100%;display:block;margin:auto}
+
+/* RENDER FIGURES */
+figure{margin:0}
+.render{display:grid;gap:10px}
+.render img{display:block;width:100%;max-width:100%;border-radius:14px;aspect-ratio:16/9;object-fit:cover;background:var(--line)}
+.render figcaption{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between}
+.render figcaption b{color:var(--ink);font-weight:600}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* DOSSIER */
+.dossier{padding-block:clamp(56px,8vw,96px);border-top:1px solid var(--line)}
+.dossier:nth-of-type(even){background:color-mix(in srgb,var(--surface) 55%,var(--bg))}
+.d-head{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:start;margin-bottom:28px}
+.rank{font:800 clamp(64px,8vw,112px)/.8 var(--f-display);color:var(--orange);letter-spacing:-.05em}
+.d-head .t{display:grid;gap:10px;min-width:0}
+.d-head .t p{color:var(--muted);font-size:17.5px;max-width:64ch}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.chip{font:600 11.5px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;border-radius:999px;white-space:nowrap}
+.chip.o{background:var(--orange-soft);color:var(--orange)} .chip.d{background:var(--pea-soft);color:var(--pea)}
+.quote{font:700 clamp(19px,2vw,23px)/1.3 var(--f-display);color:var(--ink);border-left:4px solid var(--orange);padding:4px 0 4px 18px;max-width:62ch;margin-block:32px}
+.spec{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);margin-top:24px}
+.spec div{padding:14px 16px;border-left:1px solid var(--line);display:grid;gap:4px;min-width:0}
+.spec div:first-child{border-left:0}
+.spec small{font:600 10.5px/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.spec b{font:700 15px/1.3 var(--f-display)}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.mode{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:12px;align-content:start;min-width:0}
+.mode .lbl{font:600 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase}
+.mode.with .lbl{color:var(--orange)} .mode.without .lbl{color:var(--muted)}
+.mode ol,.mode ul{margin:0;padding-left:20px;display:grid;gap:7px;font-size:15px}
+.blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.blk{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:10px;align-content:start;min-width:0}
+.blk h4{font:600 11.5px/1.3 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.blk ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14.5px}
+.blk p{font-size:14.5px}
+.blk.wow{background:var(--orange);border-color:var(--orange);color:#fff}
+.blk.wow h4{color:#ffe1cc}
+.script{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.script li{display:grid;grid-template-columns:64px 1fr;gap:12px;font-size:14.5px}
+.script li span{font:600 11.5px/1.6 var(--f-mono);color:var(--orange)}
+.risk{margin-top:16px}
+.risk table{min-width:640px}
+
+/* JOURNEY */
+.journey{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface)}
+.step{padding:26px;display:grid;gap:12px;align-content:start;border-left:1px solid var(--line);min-width:0}
+.step:first-child{border-left:0}
+.step .when{font:600 12px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--orange)}
+.step ul{margin:0;padding-left:18px;display:grid;gap:7px;font-size:15px}
+.reto{margin-top:20px;background:var(--pea-soft);border-radius:18px;padding:clamp(22px,3vw,32px);display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:start}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{background:var(--surface);border-radius:10px;padding:10px 6px;text-align:center;display:grid;gap:4px;min-width:0}
+.day b{font:800 20px/1 var(--f-display);color:var(--pea)}
+.day span{font-size:11px;line-height:1.25;color:var(--muted)}
+
+/* PLAN */
+.plan-wrap{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px}
+.plan-wrap svg{display:block;width:100%;min-width:760px;height:auto}
+.z rect,.z circle{stroke-width:2}
+.z-rec{fill:#e2601b;fill-opacity:.22;stroke:#e2601b}
+.z-carne{fill:#e2601b;fill-opacity:.55;stroke:#b94812}
+.z-carne-floor{fill:#e2601b;fill-opacity:.12;stroke:#e2601b;stroke-dasharray:6 5}
+.z-huerta{fill:#5c9a2e;fill-opacity:.55;stroke:#3f6e1d}
+.z-huerta-floor{fill:#5c9a2e;fill-opacity:.2;stroke:#5c9a2e;stroke-dasharray:6 5}
+.z-retr{fill:#f2c230;fill-opacity:.5;stroke:#a07c0c}
+.z-retr-floor{fill:#f2c230;fill-opacity:.16;stroke:#a07c0c;stroke-dasharray:6 5}
+.z-muro{fill:#f2c230;stroke:#a07c0c}
+.z-obr{fill:#7a5f52;fill-opacity:.35;stroke:#4a2618}
+.z-dark{fill:#4a2618;fill-opacity:.8;stroke:#2e1a12}
+.z-cam{fill:#2e1a12;stroke:#ffffff}
+.flow{fill:none;stroke:var(--plan-flow);stroke-width:4;stroke-dasharray:2 9;stroke-linecap:round}
+.num circle{fill:#2e1a12;stroke:#ffffff;stroke-width:3}
+.num text{fill:#ffffff;font:700 19px var(--f-display);text-anchor:middle}
+.lab text{fill:var(--plan-ink);font:600 14px var(--f-body);text-anchor:middle;paint-order:stroke;stroke:#ffffff;stroke-width:4px;stroke-linejoin:round}
+.lab text.strong{font:700 15px var(--f-mono);fill:#b94812;letter-spacing:.06em}
+.lab-muro{fill:#6b5208;font:700 14px var(--f-mono);letter-spacing:.08em;text-anchor:middle}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:13.5px;color:var(--muted)}
+.legend b{font-family:var(--f-mono);color:var(--ink)}
+
+/* OPS + KPI */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;display:grid;gap:14px;align-content:start;min-width:0}
+.box ul{margin:0;padding-left:18px;display:grid;gap:8px;font-size:15px}
+.warn{background:var(--tag);color:var(--tag-ink);border-color:transparent}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{border-top:3px solid var(--orange);padding-top:12px;display:grid;gap:4px;font-size:14.5px;min-width:0}
+.kpi b{font:700 16px var(--f-display)}
+.kpi span{color:var(--muted)}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:3px solid var(--orange)}
+.tl{padding:16px 14px 0 0;display:grid;gap:6px;align-content:start;font-size:14.5px;position:relative;min-width:0}
+.tl::before{content:"";position:absolute;top:-9px;left:0;width:15px;height:15px;border-radius:50%;background:var(--orange);border:3px solid var(--bg)}
+.tl small{font:600 11.5px var(--f-mono);color:var(--orange);letter-spacing:.06em;text-transform:uppercase}
+.tl p{color:var(--muted)}
+.next{counter-reset:n;display:grid;gap:10px;padding:0;margin:0;list-style:none}
+.next li{counter-increment:n;display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:baseline;font-size:15.5px}
+.next li::before{content:counter(n,decimal-leading-zero);font:600 13px var(--f-mono);color:var(--orange)}
+.refs{font-size:13px;color:var(--muted);display:grid;gap:4px;margin-top:20px}
+footer{background:var(--brown);color:#d9bfae;padding-block:28px;font-size:13.5px}
+
+@media (max-width:900px){
+  .hero .wrap,.concept-grid,.reto{grid-template-columns:1fr}
+  .hero-img img{max-width:300px;margin:0 auto;transform:rotate(3deg) translateY(10px)}
+  .facts .wrap{grid-template-columns:repeat(2,1fr)}
+  .fact{border-left:0;border-top:1px solid rgba(255,255,255,.25)}
+  .bridge{grid-template-columns:1fr}.bridge .arrow{transform:rotate(90deg);justify-self:center}
+  .chem,.modes,.cols,.duo{grid-template-columns:1fr}
+  .principles,.stalls,.blocks{grid-template-columns:1fr 1fr}
+  .toc{grid-template-columns:1fr}
+  .spec{grid-template-columns:repeat(3,1fr)}
+  .spec div:nth-child(4){border-left:0}
+  .spec div:nth-child(n+4){border-top:1px solid var(--line)}
+  .kpis{grid-template-columns:1fr 1fr}
+  .timeline{grid-template-columns:1fr;border-top:0;border-left:3px solid var(--orange)}
+  .tl{padding:0 0 18px 20px}.tl::before{top:2px;left:-9px}
+  .journey{grid-template-columns:1fr}.step{border-left:0;border-top:1px solid var(--line)}.step:first-child{border-top:0}
+  .d-head{grid-template-columns:auto 1fr}.chips{grid-column:1/-1;justify-content:flex-start}
+}
+@media (max-width:560px){
+  .principles,.stalls,.blocks,.kpis{grid-template-columns:1fr}
+  .spec{grid-template-columns:1fr 1fr}
+  .spec div{border-left:0;border-top:1px solid var(--line)}
+  .spec div:first-child{border-top:0}
+  .days{grid-template-columns:repeat(4,1fr)}
+  .trig li{grid-template-columns:1fr;gap:2px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .hero-img img{animation:drop .9s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes drop{from{transform:rotate(10deg) translateY(-30px);opacity:.4}}
+}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow" style="color:#ff8a45">Samplia Barcelona · Rambla de Catalunya, 32 · Lanzamiento abril 2027</span>
+      <h1>El Mercat <em>Pure&nbsp;Fresh</em></h1>
+      <p class="lede">Propuesta creativa para lanzar Ultima Pure Fresh en la pop-up de Samplia Barcelona. Montamos el local como un mercado de barrio con paradas, y en cada una el perro y su dueño viven una dinámica pensada para provocar oxitocina (vínculo) o dopamina (recompensa). Todo está conectado con la app de Samplia antes, durante y después de la visita.</p>
+      <div class="hero-meta">
+        <span>3 dossiers con render</span><span>Implantación en el local real</span><span>Con perro y sin perro</span><span>Capa phygital en la app</span>
+      </div>
+    </div>
+    <div class="hero-img"><img src="assets/pack-salmon.png" alt="Pack Ultima Pure Fresh Salmón 2,5 kg"></div>
+  </div>
+</header>
+
+<div class="facts">
+  <div class="wrap">
+    <div class="fact"><b>70%</b><span>carne fresca (pollo o salmón)</span></div>
+    <div class="fact"><b>+30%</b><span>frutas, verduras y minerales</span></div>
+    <div class="fact"><b>Frío</b><span>prensado en frío, no extruido</span></div>
+    <div class="fact"><b>Semi-húmedo</b><span>textura entre el seco y el fresco</span></div>
+    <div class="fact"><b>0,83€</b><span>al día, perro pequeño</span></div>
+  </div>
+</div>
+
+<main>
+<!-- ÍNDICE -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">La propuesta en un vistazo</span>
+      <h2>Tres dinámicas, un mercado</h2>
+      <p class="lede">Las tres dinámicas comparten el pasaporte de la app y un recorrido de una sola dirección por los 40 m² del local. Cada una tiene su dossier completo más abajo: render, mecánica con y sin perro, guion del staff, producción, capacidad, contenido, KPIs y riesgos.</p>
+    </div>
+    <div class="toc">
+      <a href="#p1"><img src="assets/fotorrealista/F1_CATA.jpg" alt="Render de la Parada de la Carne con la cata a ciegas"><div class="tx"><span class="n">Dossier 1</span><h4>El Perro Decide</h4><p>Cata a ciegas entre su pienso seco y Pure Fresh, grabada a cámara lenta.</p></div></a>
+      <a href="#p2"><img src="assets/fotorrealista/F2_QUEST.jpg" alt="Render del Fresh Quest con la cámara de frío en el escaparate y el puente"><div class="tx"><span class="n">Dossier 2</span><h4>Fresh Quest BCN</h4><p>Ginkana de cinco paradas con pasaporte en la app y rutas por los parques.</p></div></a>
+      <a href="#p3"><img src="assets/fotorrealista/F3_MIRADA.jpg" alt="Render de El Retratista con el fotomatón y el Muro de las 1.000 Miradas"><div class="tx"><span class="n">Dossier 3</span><h4>La Mirada</h4><p>Fotomatón que dispara cuando perro y dueño se miran a los ojos.</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHT -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">El producto en una idea</span>
+      <h2>Un puente entre dos comederos</h2>
+      <p class="lede">El petparent quiere una alimentación más natural, pero sin congelador y sin pasos extra antes de servir. Pure Fresh une el pienso seco y el fresco. La pop-up tiene que hacer que ese puente se vea, se huela y se pruebe.</p>
+    </div>
+    <div class="bridge">
+      <div class="side"><small>Pienso tradicional</small><h4>Completo y práctico</h4><ul><li>Fácil de dosificar</li><li>Extruido a alta temperatura</li><li>Poca transparencia sobre el proceso</li></ul></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="mid"><small style="color:var(--orange)">Ultima Pure Fresh</small><h4>Lo mejor de los dos</h4><ul><li>70% carne fresca, sin harinas cárnicas ni cereales</li><li>Mínimamente procesado, prensado en frío</li><li>Alta palatabilidad por la textura semi-húmeda</li><li>Se sirve como un pienso, por 0,83€/día</li></ul></div>
+      <div class="arrow" aria-hidden="true">←</div>
+      <div class="side"><small>Fresco / congelado</small><h4>Más real, menos práctico</h4><ul><li>Ingredientes más "humanos"</li><li>Congelador y más pasos</li><li>1,84€/día de media</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEURO -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Estudio previo · La química de la visita</span>
+      <h2>Qué dispara oxitocina y dopamina en una pop-up con perros</h2>
+      <p class="lede">La dopamina engancha: anticipación, sorpresa, progreso y premio. La oxitocina vincula: mirada, contacto, cuidado y ritual compartido. Aquí el perro también participa, y su química alimenta la de su dueño. Si la marca está presente en ese momento, se queda asociada al vínculo.</p>
+    </div>
+    <div class="chem">
+      <div class="chem-card oxy">
+        <div class="mol">Oxitocina</div>
+        <p class="sub">Vínculo, confianza, cuidado. Es la química de "esto lo hago por él".</p>
+        <ul class="trig">
+          <li><b>Mirada</b><span>El contacto visual sostenido entre perro y dueño eleva la oxitocina en los dos, en un bucle que se retroalimenta. <cite>Nagasawa et al., Science, 2015</cite></span></li>
+          <li><b>Contacto</b><span>Acariciar y hablar al perro unos minutos sube la oxitocina y las beta-endorfinas en persona y animal. <cite>Odendaal &amp; Meintjes, 2003 · Handlin et al., 2011</cite></span></li>
+          <li><b>Dar</b><span>Preparar o regalar algo a quien queremos activa conductas de cuidado y confianza. <cite>Zak, investigación sobre oxitocina y generosidad</cite></span></li>
+          <li><b>Ritual</b><span>Hacer algo juntos con principio y final claros se recuerda como experiencia compartida.</span></li>
+          <li><b>Comunidad</b><span>Formar parte de un muro colectivo con otros dueños refuerza la pertenencia.</span></li>
+        </ul>
+      </div>
+      <div class="chem-card dopa">
+        <div class="mol">Dopamina</div>
+        <p class="sub">Anticipación, sorpresa, logro. Es la química de "una vez más".</p>
+        <ul class="trig">
+          <li><b>Sorpresa</b><span>La dopamina responde sobre todo a lo que supera lo esperado. Un premio variable engancha más que uno fijo. <cite>Schultz, Dayan &amp; Montague, Science, 1997</cite></span></li>
+          <li><b>Progreso</b><span>Cuanto más cerca está la meta, más se acelera el esfuerzo. Una tarjeta de sellos con dos ya marcados se completa antes. <cite>Kivetz, Urminsky &amp; Zheng, 2006</cite></span></li>
+          <li><b>Olfato</b><span>El trabajo de olfato vuelve a los perros más "optimistas" en pruebas de sesgo cognitivo. <cite>Duranton &amp; Horowitz, 2019</cite></span></li>
+          <li><b>Comida y elogio</b><span>La anticipación de comida y el elogio del dueño activan el sistema de recompensa del perro. Muchos responden igual o más al elogio. <cite>Cook, Berns et al., 2016</cite></span></li>
+          <li><b>Reto</b><span>Una prueba superable con un resultado visible (un contador, un ranking) da logro y ganas de compartirlo.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="principles">
+      <div class="pr"><span class="n">Principio 1</span><h4>Química doble</h4><p>Cada dinámica activa algo en el perro y en la persona a la vez.</p></div>
+      <div class="pr"><span class="n">Principio 2</span><h4>El producto es el premio</h4><p>La recompensa del perro es Pure Fresh. Su reacción demuestra el claim en directo.</p></div>
+      <div class="pr"><span class="n">Principio 3</span><h4>Sorpresa con red</h4><p>Siempre hay premio, pero su tamaño es variable.</p></div>
+      <div class="pr"><span class="n">Principio 4</span><h4>Arrancar con progreso</h4><p>El pasaporte de la app empieza con el primer sello puesto al reservar.</p></div>
+      <div class="pr"><span class="n">Principio 5</span><h4>Un momento para guardar</h4><p>Cada visita termina con un recuerdo físico y digital.</p></div>
+      <div class="pr"><span class="n">Principio 6</span><h4>La visita sigue en casa</h4><p>La muestra activa un reto de 7 días en la app.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MATRIZ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Repertorio Samplia, revisado</span>
+      <h2>Cómo encaja cada mecánica habitual</h2>
+      <p class="lede">Puntuación de 1 a 3 según su potencial de oxitocina, de dopamina y de encaje con Pure Fresh. Ninguna se descarta del todo: algunas pasan a ser el premio final y otras cambian de forma.</p>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Mecánica</th><th>Oxitocina</th><th>Dopamina</th><th>Encaje</th><th>Cómo la reinterpretamos</th><th>Papel</th></tr></thead>
+        <tbody>
+          <tr><td><b>Fotomatón + fotocall</b></td><td class="meter m-o">●●●</td><td class="meter m-d">●●<span class="dim">●</span></td><td class="meter m-f">●●<span class="dim">●</span></td><td>La Mirada: la foto se dispara cuando perro y dueño se miran.</td><td><span class="verdict v-top">Dossier 3</span></td></tr>
+          <tr><td><b>Personalización</b></td><td class="meter m-o">●●●</td><td class="meter m-d">●●<span class="dim">●</span></td><td class="meter m-f">●●<span class="dim">●</span></td><td>Comedero, chapa o bandana con su nombre y su ración diaria.</td><td><span class="verdict v-top">Dossier 3</span></td></tr>
+          <tr><td><b>Ginkana</b></td><td class="meter m-o">●●●</td><td class="meter m-d">●●●</td><td class="meter m-f">●●●</td><td>Fresh Quest BCN: cinco paradas con sello y un puente físico.</td><td><span class="verdict v-top">Dossier 2</span></td></tr>
+          <tr><td><b>Cabina de aire</b></td><td class="meter m-o">●<span class="dim">●●</span></td><td class="meter m-d">●●●</td><td class="meter m-f">●●●</td><td>Cámara de frío en el escaparate, con fichas de ingredientes volando. Cuenta el prensado en frío.</td><td><span class="verdict v-in">Dossier 2</span></td></tr>
+          <tr><td><b>Piscina de bolas</b></td><td class="meter m-o">●●<span class="dim">●</span></td><td class="meter m-d">●●<span class="dim">●</span></td><td class="meter m-f">●●●</td><td>Snuffle pit de la Huerta, con bolas de tela con forma de verdura y premios escondidos.</td><td><span class="verdict v-in">Dossier 2</span></td></tr>
+          <tr><td><b>Plinko</b></td><td class="meter m-o">●<span class="dim">●●</span></td><td class="meter m-d">●●●</td><td class="meter m-f">●●<span class="dim">●</span></td><td>Plinko 70/30: el 70% de las casillas son premios "de carne" y el 30% "de huerta".</td><td><span class="verdict v-in">Premio final</span></td></tr>
+          <tr><td><b>Máquina de gancho</b></td><td class="meter m-o">●<span class="dim">●●</span></td><td class="meter m-d">●●●</td><td class="meter m-f">●●<span class="dim">●</span></td><td>El Gancho Fresh: se pescan sobres de muestra MINI y MEDMAX.</td><td><span class="verdict v-in">Premio final</span></td></tr>
+          <tr><td><b>Pared interactiva</b></td><td class="meter m-o">●●<span class="dim">●</span></td><td class="meter m-d">●<span class="dim">●●</span></td><td class="meter m-f">●●<span class="dim">●</span></td><td>Muro de las 1.000 Miradas: las fotos van formando el pack.</td><td><span class="verdict v-in">Dossier 3</span></td></tr>
+          <tr><td><b>Ruleta</b></td><td class="meter m-o">●<span class="dim">●●</span></td><td class="meter m-d">●●●</td><td class="meter m-f">●<span class="dim">●●</span></td><td>Alternativa al Plinko si falta espacio. Por sí sola no cuenta el producto.</td><td><span class="verdict v-out">Reserva</span></td></tr>
+          <tr><td><b>Algodón de azúcar</b></td><td class="meter m-o">●●<span class="dim">●</span></td><td class="meter m-d">●●<span class="dim">●</span></td><td class="meter m-f">●<span class="dim">●●</span></td><td>El azúcar choca con el mensaje natural. Lo cambiamos por fruta fresca para las personas en recepción.</td><td><span class="verdict v-out">Se sustituye</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPTO -->
+<section class="concept">
+  <div class="wrap">
+    <div class="concept-grid">
+      <div class="sec-head" style="margin-bottom:0">
+        <span class="eyebrow" style="color:#ff8a45">Concepto paraguas</span>
+        <h2>Un mercat de barrio, en versión perruna</h2>
+        <p class="lede">Barcelona entiende lo fresco a través de sus mercados: la parada, el tendero que te da a probar, el producto a la vista. Toldos a rayas naranja y crema, pizarras con "70% carne fresca · desde 0,83€ al día" y un tendero Samplia en cada parada. El mensaje de "fresco" se entiende sin explicarlo.</p>
+      </div>
+      <img src="assets/bowl-burst.png" alt="Ingredientes frescos saliendo de un comedero Ultima" style="max-width:420px">
+    </div>
+    <div class="stalls">
+      <div class="stall"><div class="awn"></div><h4>Parada de la Carne</h4><p>La cata a ciegas en la pared del fondo. <b>Dossier 1</b></p></div>
+      <div class="stall"><div class="awn"></div><h4>L'Obrador</h4><p>Cámara de frío en el escaparate y puente Seco → Fresco. <b>Dossier 2</b></p></div>
+      <div class="stall"><div class="awn"></div><h4>Parada de la Huerta</h4><p>Columna con cajas de olfato y snuffle pit. Forma parte del <b>Dossier 2</b>.</p></div>
+      <div class="stall"><div class="awn"></div><h4>El Retratista</h4><p>Fotomatón, muro colectivo y personalización. <b>Dossier 3</b></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DOSSIER 1 ================= -->
+<article class="dossier" id="p1">
+  <div class="wrap">
+    <div class="d-head">
+      <div class="rank">1</div>
+      <div class="t">
+        <span class="tag">Parada de la Carne · pared B4</span>
+        <h2>El Perro Decide</h2>
+        <p>Dos comederos idénticos: uno con su pienso seco habitual y otro con Pure Fresh. El perro elige y una cámara cenital lo graba a cámara lenta. El dueño se lleva el vídeo, y el resultado suma a un marcador en directo con todos los perros de Barcelona.</p>
+      </div>
+      <div class="chips"><span class="chip d">Dopamina ●●●</span><span class="chip o">Oxitocina ●●</span></div>
+    </div>
+    <figure class="render">
+      <img src="assets/fotorrealista/F1_CATA.jpg" alt="Simulación fotorrealista de la Parada de la Carne con una tendera, dos clientes y sus perros delante de la alfombra de cata" loading="lazy">
+      <figcaption><span><b>Simulación fotorrealista</b> · Parada de la Carne con clientes y perros.</span><span>Generada con IA a partir del render 3D · textos aproximados</span></figcaption>
+    </figure>
+    <figure class="render" style="margin-top:16px">
+      <img src="assets/renders/R1_CATA.jpg" alt="Render 3D de la Parada de la Carne: mostrador de mercado con toldo, pantalla con el marcador, pizarra de precio y alfombra de cata con dos cuencos" loading="lazy">
+      <figcaption><span><b>Render 3D</b> · Parada de la Carne sobre la pared del fondo (B4), con la alfombra de cata delante.</span><span>Datos de pantalla ilustrativos · figuras de escala</span></figcaption>
+    </figure>
+    <p class="quote">Es la prueba más directa del claim de palatabilidad, y quien la hace es el perro, no la marca. La incertidumbre de "¿a cuál irá?" es dopamina para el dueño, y ver a su perro elegir con ganas le da orgullo y ternura.</p>
+    <div class="spec">
+      <div><small>Ubicación</small><b>Pared B4 · 280 cm</b></div>
+      <div><small>Superficie</small><b>2,0 × 2,0 m</b></div>
+      <div><small>Duración</small><b>3 min por perro</b></div>
+      <div><small>Capacidad</small><b>~15 catas/hora</b></div>
+      <div><small>Staff</small><b>1 tendero</b></div>
+      <div><small>Muestra</small><b>MINI / MEDMAX</b></div>
+    </div>
+    <div class="modes">
+      <div class="mode with">
+        <span class="lbl">Con mascota</span>
+        <ol>
+          <li>Check-in con la app (QR en la parada). Se carga la ficha del perro: nombre, tamaño y alergias.</li>
+          <li>El tendero sirve 5 g de cada comida en dos cuencos iguales desde la báscula de mercado del mostrador.</li>
+          <li>Cuenta atrás en la pantalla y el dueño suelta al perro. La BowlCam lo graba desde arriba a 120 fps.</li>
+          <li>Elija lo que elija, gana: vídeo en la app, Certificado de Catador Oficial y la muestra adecuada a su tamaño.</li>
+          <li>La pantalla actualiza el marcador de la ciudad en directo.</li>
+        </ol>
+      </div>
+      <div class="mode without">
+        <span class="lbl">Sin mascota · Nariz contra Nariz</span>
+        <ol>
+          <li>Cinco cajas de olfato cerradas: pollo asado, salmón, manzana, guisante y calabaza. Hay que adivinar con la nariz humana.</li>
+          <li>La pantalla compara 6 millones de receptores humanos con unos 300 millones del perro: "Imagina lo que huele él".</li>
+          <li>Con 3 aciertos o más, ficha extra para el Plinko. Siempre se lleva muestra para el perro que espera en casa.</li>
+          <li>Desde la app puede reservar una franja para volver con su perro.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="blocks">
+      <div class="blk">
+        <h4>Guion del tendero</h4>
+        <ul class="script">
+          <li><span>00:00</span>"¡Bon dia! Hoy aquí manda él. ¿Cómo se llama?"</li>
+          <li><span>00:30</span>"En un cuenco tiene lo de siempre y en el otro, 70% carne fresca. Él no sabe cuál es cuál."</li>
+          <li><span>01:00</span>"3, 2, 1… ¡que decida!" (silencio, cámara lenta)</li>
+          <li><span>01:30</span>"¡Qué nariz! Aquí tienes su vídeo y su certificado de catador."</li>
+          <li><span>02:30</span>"Su muestra ya está en tu app. Si la acaba en 7 días, tienes premio."</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>Escenografía y producción</h4>
+        <ul>
+          <li>Mostrador de mercado de madera de 200 × 60 × 95 cm, con frontal de pizarra.</li>
+          <li>Toldo de lona a rayas sobre dos postes de 2 m.</li>
+          <li>Pantalla de 55" con el marcador en directo y gráfica en la pared B4 (dibond 280 × 222).</li>
+          <li>BowlCam cenital (cámara de acción 4K a 120 fps) con brazo al techo.</li>
+          <li>Alfombra vinílica de cata de Ø 150 antideslizante, 2 cuencos de cerámica y cuencos desechables.</li>
+          <li>Báscula de mercado decorativa y sobres de muestra en exposición.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>Capa app</h4>
+        <ul>
+          <li>Reserva de franja con perro y ficha previa del perro.</li>
+          <li>Vídeo slow-motion con marco de marca, listo para stories.</li>
+          <li>Insignia Catador Oficial y marcador de la ciudad visible en la app.</li>
+          <li>Activación automática del Reto 7 Días Fresh.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>Contenido y UGC</h4>
+        <ul>
+          <li>Cientos de reacciones reales para un supercut de lanzamiento, siempre con consentimiento de imagen.</li>
+          <li>Formato serie "Que decida él" para redes de la marca, un perro por día.</li>
+          <li>Pantalla del marcador hacia el interior, visible al entrar.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>KPIs de la parada</h4>
+        <ul>
+          <li>Catas realizadas y su porcentaje sobre las visitas con perro.</li>
+          <li>Vídeos descargados y compartidos.</li>
+          <li>Elecciones registradas, con su redacción validada por legal.</li>
+          <li>Muestras entregadas por tamaño.</li>
+        </ul>
+      </div>
+      <div class="blk wow">
+        <h4>Para superar la expectativa</h4>
+        <ul>
+          <li><b>La Noche de la Cata:</b> un evento de apertura con perros influencers de Barcelona y el marcador a cero.</li>
+          <li><b>Certificado impreso</b> con la foto de su elección, firmado por "el tendero".</li>
+          <li><b>Mapa de barrios:</b> el marcador se desglosa por distritos de Barcelona en la app.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tbl-wrap risk">
+      <table>
+        <thead><tr><th>Riesgo</th><th>Mitigación</th></tr></thead>
+        <tbody>
+          <tr><td>El marcador se lee como un estudio de preferencia</td><td>Presentarlo como juego ("perros que ya han decidido"), sin porcentaje como claim. Redacción aprobada por legal.</td></tr>
+          <tr><td>Alergias o dietas veterinarias</td><td>Pregunta obligatoria en la ficha de la app. Si hay restricción, se hace la versión sin mascota.</td></tr>
+          <tr><td>Perro nervioso o que no come</td><td>Ninguna presión: siempre hay certificado y muestra. El educador canino decide si se hace la cata.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</article>
+
+<!-- ================= DOSSIER 2 ================= -->
+<article class="dossier" id="p2">
+  <div class="wrap">
+    <div class="d-head">
+      <div class="rank">2</div>
+      <div class="t">
+        <span class="tag">L'Obrador + Huerta · escaparate y centro</span>
+        <h2>Fresh Quest BCN</h2>
+        <p>Un circuito de cinco paradas que se completa con el pasaporte de la app. Con perro, es un pequeño recorrido de olfato y agility. Sin perro, el visitante hace las pruebas físicas por él. Fuera de la tienda continúa durante cuatro semanas con rutas por los parques de Barcelona y un ranking de barrios.</p>
+      </div>
+      <div class="chips"><span class="chip d">Dopamina ●●●</span><span class="chip o">Oxitocina ●●●</span></div>
+    </div>
+    <figure class="render">
+      <img src="assets/fotorrealista/F2_QUEST.jpg" alt="Simulación fotorrealista del Fresh Quest con visitantes y perros en el puente, la Huerta y la cámara de frío" loading="lazy">
+      <figcaption><span><b>Simulación fotorrealista</b> · Fresh Quest con visitantes y perros en recorrido.</span><span>Generada con IA a partir del render 3D · textos aproximados</span></figcaption>
+    </figure>
+    <figure class="render" style="margin-top:16px">
+      <img src="assets/renders/R2_QUEST.jpg" alt="Render 3D del Fresh Quest: cámara de frío con fichas de ingredientes junto al escaparate, pack gigante, puente Seco a Fresco y snuffle pit de la Huerta" loading="lazy">
+      <figcaption><span><b>Render 3D</b> · Cámara de frío y pack gigante en el escaparate, puente en el centro y Parada de la Huerta al fondo.</span><span>Figuras de escala</span></figcaption>
+    </figure>
+    <p class="quote">La ginkana junta las dos químicas. Guiar, animar y celebrar con el perro crea vínculo, y los sellos con progreso visible enganchan. Además, cada parada cuenta un atributo del producto sin necesidad de cartelería.</p>
+    <div class="spec">
+      <div><small>Ubicación</small><b>Escaparate, centro y columna E</b></div>
+      <div><small>Paradas</small><b>5 + premio</b></div>
+      <div><small>Duración</small><b>~12 min</b></div>
+      <div><small>Aforo</small><b>4 perros a la vez</b></div>
+      <div><small>Staff</small><b>1 guía + educador</b></div>
+      <div><small>Fuera</small><b>4 semanas de rutas</b></div>
+    </div>
+    <div class="modes">
+      <div class="mode with">
+        <span class="lbl">Con mascota · 5 paradas</span>
+        <ol>
+          <li><b>Huele</b> (Huerta): snuffle pit de Ø 120 con muestras escondidas entre verduras de tela. Es trabajo de olfato y el perro sale contento.</li>
+          <li><b>Cruza el Puente</b>: pasarela baja de agility de "Seco" a "Fresco". Es el puente del producto hecho objeto físico.</li>
+          <li><b>Cámara de frío</b>: el dueño entra en la cabina del escaparate y atrapa fichas de ingredientes mientras el perro espera sentado. La espera se premia con una pieza.</li>
+          <li><b>Mírame</b>: 5 segundos de contacto visual en el fotomatón de La Mirada (dossier 3).</li>
+          <li><b>La Ración</b>: en recepción se calcula su ración diaria y su coste (desde 0,83€/día) según su peso.</li>
+        </ol>
+      </div>
+      <div class="mode without">
+        <span class="lbl">Sin mascota · Pasaporte de Paseador</span>
+        <ol>
+          <li>El visitante recibe un pasaporte a nombre de su perro, con los datos de la app o rellenado en recepción.</li>
+          <li>Hace él las pruebas físicas: busca premios en la Piscina del 70%, atrapa fichas en la cámara de frío y adivina olores en las cajas de olfato.</li>
+          <li>En La Ración calcula la porción y el coste diario de su perro.</li>
+          <li>Con el pasaporte completo juega al Plinko o al Gancho y se lleva la muestra para casa.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="blocks">
+      <div class="blk">
+        <h4>Guion del guía</h4>
+        <ul class="script">
+          <li><span>Entrada</span>"Tenéis cinco sellos por conseguir. El primero ya lo tenéis por reservar."</li>
+          <li><span>Huerta</span>"Aquí hay 30% de frutas y verduras… y premios escondidos. ¡Busca!"</li>
+          <li><span>Puente</span>"De lo seco a lo fresco: crúzalo con él, a su ritmo."</li>
+          <li><span>Cabina</span>"Prensado en frío: atrapa todo lo que puedas en 20 segundos."</li>
+          <li><span>Final</span>"Pasaporte completo. ¡A por el Plinko!"</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>Escenografía y producción</h4>
+        <ul>
+          <li>Cabina de aire de 100 × 100 × 220 cm, forrada en madera, con rótulo "Cámara de frío" y luz fría. Se coloca en el escaparate de 301 cm, visible desde la calle.</li>
+          <li>Fichas ligeras con forma de ingrediente: pollo, salmón, guisante, manzana y calabaza.</li>
+          <li>Pasarela de agility de 150 × 40 cm a 25 cm de altura, con superficie antideslizante.</li>
+          <li>Snuffle pit de fieltro de Ø 120 con unas 70 piezas lavables.</li>
+          <li>Vinilo de suelo con el recorrido de puntos.</li>
+          <li>Pack gigante a doble cara en el escaparate.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>Capa app</h4>
+        <ul>
+          <li>Pasaporte de 5 sellos con QR o NFC en cada parada.</li>
+          <li>Rutas Fresh: check-ins geolocalizados en parques con zona de perros (Ciutadella, Turó Park, Parc de l'Estació del Nord, Montjuïc).</li>
+          <li>Ranking "Barri més Fresh" con premio para el barrio ganador.</li>
+          <li>Perfil completo del perro para el seguimiento posterior.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>Premios (siempre hay, de tamaño variable)</h4>
+        <ul>
+          <li>Plinko 70/30 contra B2: MINI, MEDMAX, bandana y bolsa de 2,5 kg.</li>
+          <li>Gancho Fresh junto al chaflán B1: sobres de muestra.</li>
+          <li>Premio grande semanal: bolsa de 6 kg.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>KPIs del Quest</h4>
+        <ul>
+          <li>Porcentaje de pasaportes completos y tiempo medio en el local.</li>
+          <li>Sellos por parada, para detectar cuellos de botella.</li>
+          <li>Check-ins en Rutas Fresh y participación por barrio.</li>
+          <li>Perfiles de perro completados.</li>
+        </ul>
+      </div>
+      <div class="blk wow">
+        <h4>Para superar la expectativa</h4>
+        <ul>
+          <li><b>La cabina es el escaparate:</b> desde la calle se ve a la gente atrapando ingredientes. Es el reclamo del local.</li>
+          <li><b>Sello con forma de huella</b> en el pasaporte físico.</li>
+          <li><b>Récord del día</b> de la cabina en una pizarra junto a la puerta.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tbl-wrap risk">
+      <table>
+        <thead><tr><th>Riesgo</th><th>Mitigación</th></tr></thead>
+        <tbody>
+          <tr><td>Cruces entre perros</td><td>Un solo sentido, 4 perros por franja y una parada activa por perro.</td></tr>
+          <tr><td>Pasarela con perros pequeños o mayores</td><td>Altura de 25 cm, rampas suaves y opción de rodearla a pie con el mismo sello.</td></tr>
+          <tr><td>Higiene del snuffle pit</td><td>Piezas lavables en rotación y limpieza a cada cambio de franja.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</article>
+
+<!-- ================= DOSSIER 3 ================= -->
+<article class="dossier" id="p3">
+  <div class="wrap">
+    <div class="d-head">
+      <div class="rank">3</div>
+      <div class="t">
+        <span class="tag">El Retratista · alcoba y pared D1</span>
+        <h2>La Mirada</h2>
+        <p>Un fotomatón que no dispara cuando sonríes, sino cuando tu perro y tú os miráis a los ojos. Las fotos se imprimen en tira y van formando, foto a foto, un gran mosaico del pack de Pure Fresh en la pared D1.</p>
+      </div>
+      <div class="chips"><span class="chip o">Oxitocina ●●●</span><span class="chip d">Dopamina ●●</span></div>
+    </div>
+    <figure class="render">
+      <img src="assets/fotorrealista/F3_MIRADA.jpg" alt="Simulación fotorrealista de La Mirada: un dueño sentado frente a su golden retriever, una operadora con el aro de luz y el Muro de las 1.000 Miradas" loading="lazy">
+      <figcaption><span><b>Simulación fotorrealista</b> · La Mirada en plena sesión, con el muro de fondo.</span><span>Generada con IA a partir del render 3D · textos aproximados</span></figcaption>
+    </figure>
+    <figure class="render" style="margin-top:16px">
+      <img src="assets/renders/R3_MIRADA.jpg" alt="Render 3D de El Retratista: banco con dueño y perro mirándose ante el fondo crema de la alcoba, cámara con aro de luz, Muro de las 1.000 Miradas en D1 y columna de la Huerta" loading="lazy">
+      <figcaption><span><b>Render 3D</b> · Set de La Mirada en la alcoba, Muro de las 1.000 Miradas en D1 y mesa de personalización a la izquierda.</span><span>Figuras de escala</span></figcaption>
+    </figure>
+    <p class="quote">La mirada entre perro y dueño es el disparador de oxitocina mejor documentado. Aquí la marca lo convierte en un ritual de diez segundos con un recuerdo que se llevan a casa. Es el momento más emocional de la visita y el más compartible.</p>
+    <div class="spec">
+      <div><small>Ubicación</small><b>Alcoba 170 + D1 + C4</b></div>
+      <div><small>Superficie</small><b>~7 m²</b></div>
+      <div><small>Duración</small><b>2 min por foto</b></div>
+      <div><small>Capacidad</small><b>~25 fotos/hora</b></div>
+      <div><small>Staff</small><b>1 operador</b></div>
+      <div><small>Recuerdo</small><b>Tira + digital</b></div>
+    </div>
+    <div class="modes">
+      <div class="mode with">
+        <span class="lbl">Con mascota</span>
+        <ol>
+          <li>El dueño se sienta en el banco y sostiene una pieza de Pure Fresh a la altura de sus ojos. El perro mira la pieza y, con ella, a su dueño.</li>
+          <li>La cámara frontal capta a los dos de perfil mirándose. El operador dispara la ráfaga y la pantalla marca "Conexión: 5 segundos".</li>
+          <li>Tira de 3 fotos impresa al momento con el claim "Lo que de verdad le gusta", y versión digital en la app.</li>
+          <li>Una copia va al Muro de las 1.000 Miradas: cada foto es un píxel del mosaico que forma el pack.</li>
+          <li>La pieza que sostenía el dueño es el premio del perro.</li>
+        </ol>
+      </div>
+      <div class="mode without">
+        <span class="lbl">Sin mascota · Retrat del teu gos</span>
+        <ol>
+          <li>Sube una foto de su perro a la app y un ilustrador en directo lo retrata.</li>
+          <li>El retrato se graba en un comedero, una chapa o una bandana con su nombre y su ración diaria. Regalar a quien quieres también es oxitocina.</li>
+          <li>El retrato también entra en el Muro, así el perro "está" aunque no haya venido.</li>
+          <li>Opcional los fines de semana: Rincón Protectora, con perros de una protectora local, educador y espacio acotado.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="blocks">
+      <div class="blk">
+        <h4>Guion del operador</h4>
+        <ul class="script">
+          <li><span>00:00</span>"Aquí no hace falta sonreír. Solo miraros."</li>
+          <li><span>00:20</span>"Ponte la pieza entre los ojos… él hará el resto."</li>
+          <li><span>00:40</span>"¡Ahí está! Cinco segundos de conexión."</li>
+          <li><span>01:10</span>"Esta tira es para casa y esta otra para el muro. ¿Dónde la quieres?"</li>
+          <li><span>01:40</span>"Ya puede comerse su premio. Se lo ha ganado."</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>Escenografía y producción</h4>
+        <ul>
+          <li>Fondo crema en dibond de 170 × 222 en la alcoba, con firma "Lo que de verdad le gusta".</li>
+          <li>Trasera del fondo impresa hacia la calle: "¿Seco o fresco?" con el pack y una llamada a reservar.</li>
+          <li>Banco de madera, alfombra crema, cámara en trípode con aro de luz e impresora térmica de tiras.</li>
+          <li>Muro D1: retícula imantada de 255 × 175 cm con cabecera "Muro de las 1.000 Miradas".</li>
+          <li>Mesa de personalización de 140 × 45 contra C4, con grabadora y muestrario.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>Capa app</h4>
+        <ul>
+          <li>Fotos en alta con marco de marca, guardadas en el perfil.</li>
+          <li>Reto semanal "La Mirada": fotos hechas en casa, votación de la comunidad y la más votada al muro físico.</li>
+          <li>Pedido del objeto personalizado desde la app si hay cola.</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>Contenido y PR</h4>
+        <ul>
+          <li>Time-lapse del mosaico creciendo durante las 4 semanas.</li>
+          <li>Revelado final del pack completo como evento de cierre.</li>
+          <li>Ángulo para prensa local: "Barcelona se mira a los ojos".</li>
+        </ul>
+      </div>
+      <div class="blk">
+        <h4>KPIs de la parada</h4>
+        <ul>
+          <li>Fotos realizadas y piezas del mosaico completadas.</li>
+          <li>Fotos compartidas desde la app.</li>
+          <li>Objetos personalizados entregados.</li>
+          <li>Participación en el reto semanal.</li>
+        </ul>
+      </div>
+      <div class="blk wow">
+        <h4>Para superar la expectativa</h4>
+        <ul>
+          <li><b>Contador de conexión:</b> la pantalla mide los segundos de mirada y el récord del día se celebra.</li>
+          <li><b>Pieza 1.000:</b> quien completa el mosaico gana un año de Pure Fresh.</li>
+          <li><b>Postal:</b> la tira incluye una versión postal para enviar a quien cuida al perro.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tbl-wrap risk">
+      <table>
+        <thead><tr><th>Riesgo</th><th>Mitigación</th></tr></thead>
+        <tbody>
+          <tr><td>El perro no mira o se pone nervioso</td><td>Ráfaga continua y paciencia: siempre sale una foto válida. Sin flash, solo luz continua suave.</td></tr>
+          <tr><td>Cola en horas punta</td><td>Turnos desde la app y el Retrat del teu gos como alternativa sin espera.</td></tr>
+          <tr><td>Derechos de imagen</td><td>Consentimiento en la app antes de publicar en el muro o en redes.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</article>
+
+<!-- ESCAPARATE -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Fachada a la calle</span>
+      <h2>El escaparate es la primera parada</h2>
+      <p class="lede">El escaparate de 301 cm muestra en directo la cámara de frío y el pack gigante, con un toldo de vinilo arriba y el claim abajo. La ventana de la alcoba enseña la trasera del fotomatón con "¿Seco o fresco?" y la invitación a reservar la cata. Se entra por la puerta doble del chaflán A.</p>
+    </div>
+    <div class="duo">
+      <figure class="render">
+        <img src="assets/renders/R4_FACHADA.jpg" alt="Render exterior de la fachada con toldo vinilado, cámara de frío y pack gigante en el escaparate central y la ventana de la alcoba con gráfica naranja" loading="lazy">
+        <figcaption><span><b>Render 4</b> · Fachada con el escaparate y la ventana de la alcoba.</span></figcaption>
+      </figure>
+      <figure class="render">
+        <img src="assets/renders/R0_PLANTA.jpg" alt="Vista cenital del local sin techo con todas las paradas, el recorrido de puntos y la alfombra de cata" loading="lazy">
+        <figcaption><span><b>Render 5</b> · Vista cenital del local con todas las paradas.</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Recorrido phygital con la app de Samplia</span>
+      <h2>La visita empieza en el móvil y termina en el comedero</h2>
+    </div>
+    <div class="journey">
+      <div class="step"><span class="when">Antes</span><h4>Reserva y primer sello</h4><ul><li>Push a la comunidad de Barcelona: "Tu perro tiene mesa en el Mercat".</li><li>Reserva de franja con perro o visita libre sin perro.</li><li>Ficha del perro: tamaño, edad, alimentación actual y alergias. Al completarla se pone el primer sello.</li></ul></div>
+      <div class="step"><span class="when">Durante</span><h4>Pasaporte vivo</h4><ul><li>QR o NFC en cada parada para sellar.</li><li>Vídeo de la cata y fotos de La Mirada guardados en el perfil.</li><li>Marcador de la ciudad y muro en directo en la app.</li><li>Pasaporte completo: Plinko o Gancho y la muestra adecuada a su tamaño.</li></ul></div>
+      <div class="step"><span class="when">Después</span><h4>Reto 7 Días Fresh</h4><ul><li>La muestra activa el reto en casa.</li><li>Rutas Fresh durante 4 semanas en parques.</li><li>Ranking de barrios y reto semanal de La Mirada.</li><li>Cupón de primera compra al terminar. Su canje mide la conversión real.</li></ul></div>
+    </div>
+    <div class="reto">
+      <div style="display:grid;gap:12px">
+        <span class="eyebrow" style="color:var(--pea)">Phygital de cierre</span>
+        <h3>Reto 7 Días Fresh</h3>
+        <p style="color:var(--muted)">Cada día la app pide un gesto pequeño. Cada check-in es una pequeña dosis de dopamina para el dueño y una señal de producto para la marca. Al completar el reto se desbloquea el cupón y entra en el sorteo de un año de Pure Fresh.</p>
+        <p style="color:var(--muted);font-size:14px">La pauta de transición y las cantidades deben validarse con el equipo de nutrición de Ultima.</p>
+      </div>
+      <div class="days">
+        <div class="day"><b>1</b><span>Foto del primer comedero</span></div>
+        <div class="day"><b>2</b><span>¿Se lo ha terminado?</span></div>
+        <div class="day"><b>3</b><span>Mirada en casa</span></div>
+        <div class="day"><b>4</b><span>Check-in Ruta Fresh</span></div>
+        <div class="day"><b>5</b><span>Comedero vacío</span></div>
+        <div class="day"><b>6</b><span>Valoración 1 a 5</span></div>
+        <div class="day"><b>7</b><span>Cupón + sorteo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAN -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Implantación · Rambla de Catalunya, 32</span>
+      <h2>Las paradas sobre el plano real</h2>
+      <p class="lede">40 m² útiles sin baño y 2,60 m de altura. Según el modelo 3D del local, la fachada a la calle es la del escaparate de 301 cm y la ventana de la alcoba, y la única puerta de calle es la doble del chaflán A. El recorrido es antihorario y en un solo sentido: entrada, escaparate, Huerta, Retratista, Carne al fondo y premios junto a la salida.</p>
+    </div>
+    <div class="plan-wrap">
+      <svg viewBox="40 60 1480 900" role="img" aria-label="Plano del local con las paradas: recepción junto a A1, cámara de frío y pack en el escaparate, puente en el centro, Huerta en la columna E, Retratista en el ala izquierda con el muro en D1, Parada de la Carne en la pared del fondo B4 y premios en B2 y el chaflán B1, con entrada y salida por la puerta A">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--plan-flow)"/></marker>
+          <clipPath id="planclip"><rect x="40" y="60" width="1230" height="900"/><rect x="1270" y="230" width="250" height="730"/></clipPath>
+        </defs>
+        <image href="assets/plano-bcn.png" x="0" y="0" width="1600" height="1023" clip-path="url(#planclip)"/>
+        <rect x="1270" y="60" width="250" height="170" style="fill:var(--paper)"/>
+        <g class="z">
+          <rect x="983" y="283" width="164" height="62" rx="6" transform="rotate(46.7 1065 314)" class="z-rec"/>
+          <circle cx="1388" cy="552" r="22" class="z-rec"/>
+          <rect x="840" y="151" width="137" height="137" rx="8" class="z-obr"/>
+          <rect x="624" y="164" width="130" height="26" rx="4" class="z-dark"/>
+          <rect x="648" y="388" width="206" height="55" rx="10" class="z-obr"/>
+          <rect x="429" y="207" width="90" height="62" rx="4" class="z-huerta"/>
+          <circle cx="510" cy="375" r="68" class="z-huerta-floor"/>
+          <rect x="149" y="120" width="231" height="76" rx="2" class="z-retr"/>
+          <rect x="152" y="200" width="226" height="125" rx="6" class="z-retr-floor"/>
+          <circle cx="265" cy="429" r="16" class="z-cam"/>
+          <rect x="114" y="206" width="12" height="374" class="z-muro"/>
+          <rect x="262" y="522" width="188" height="60" rx="6" class="z-retr"/>
+          <rect x="669" y="777" width="274" height="79" rx="6" class="z-carne"/>
+          <rect x="703" y="600" width="206" height="175" rx="6" class="z-carne-floor"/>
+          <circle cx="806" cy="680" r="16" class="z-cam"/>
+          <rect x="1065" y="822" width="143" height="36" rx="6" class="z-dark"/>
+          <rect x="1253" y="616" width="106" height="106" rx="6" class="z-dark"/>
+        </g>
+        <path d="M1235,505 C1150,450 1100,420 1050,400 S 940,330 900,320 C 860,360 820,400 780,410 S 620,400 560,395 S 400,330 300,350 C 240,420 260,480 340,490 C 420,560 600,600 700,630 S 900,700 980,740 C 1060,780 1120,760 1180,740 C 1260,700 1300,640 1280,560" class="flow" marker-end="url(#ah)"/>
+        <g class="num">
+          <circle cx="1150" cy="250" r="19"/><text x="1150" y="257">1</text>
+          <circle cx="908" cy="310" r="19"/><text x="908" y="317">2</text>
+          <circle cx="560" cy="300" r="19"/><text x="560" y="307">3</text>
+          <circle cx="215" cy="265" r="19"/><text x="215" y="272">4</text>
+          <circle cx="955" cy="640" r="19"/><text x="955" y="647">5</text>
+          <circle cx="1210" cy="780" r="19"/><text x="1210" y="787">6</text>
+        </g>
+        <g class="lab">
+          <text x="795" y="108" class="strong">CALLE · ESCAPARATE 301</text>
+          <text x="265" y="108" class="strong">VENTANA</text>
+          <text x="908" y="225">Cámara de frío</text>
+          <text x="689" y="212">Pack gigante</text>
+          <text x="751" y="465">Puente SECO → FRESCO</text>
+          <text x="510" y="460">Snuffle pit Ø120</text>
+          <text x="474" y="295">Cajas olfato</text>
+          <text x="265" y="165">Fondo fotomatón</text>
+          <text x="265" y="465">Cámara La Mirada</text>
+          <text x="356" y="515">Personalización</text>
+          <text x="806" y="820">Mostrador Carne · LED</text>
+          <text x="806" y="625">Alfombra de cata</text>
+          <text x="1136" y="810">Plinko</text>
+          <text x="1306" y="740">Gancho</text>
+          <text x="1065" y="395">Recepción · check-in</text>
+          <text x="1388" y="597">Agua</text>
+          <text x="1290" y="455" text-anchor="start" class="strong">ENTRADA / SALIDA</text>
+          <text x="565" y="905">B5 libre</text>
+          <text x="1050" y="905">B3 libre</text>
+        </g>
+        <text x="190" y="390" transform="rotate(-90 190 390)" class="lab-muro">MURO 1.000 MIRADAS · D1</text>
+      </svg>
+    </div>
+    <div class="legend">
+      <span><b>1</b> Recepción y agua</span><span><b>2</b> L'Obrador: cámara de frío y puente</span><span><b>3</b> Parada de la Huerta</span><span><b>4</b> El Retratista</span><span><b>5</b> Parada de la Carne</span><span><b>6</b> Premios</span><span style="color:var(--orange)">● recorrido en un solo sentido</span>
+    </div>
+    <div class="cols" style="margin-top:24px">
+      <div class="box">
+        <h4>Medidas de los elementos (cm)</h4>
+        <ul>
+          <li>Mostrador Carne 200 × 60 contra B4, con 130 de fondo libre para la cata.</li>
+          <li>Cámara de frío 100 × 100 y pack gigante en el escaparate de 301.</li>
+          <li>Puente 150 × 40 en el centro, a unos 25 de altura.</li>
+          <li>Snuffle pit Ø 120 delante de la columna E (68,8 × 53,3).</li>
+          <li>Fotomatón en la alcoba de 170 × 58, con 165 × 120 de zona de pose.</li>
+          <li>Mesa de personalización 140 × 45 contra C4.</li>
+          <li>Plinko 104 × 26 contra B2 (111) y Gancho 78 × 78 junto al chaflán B1.</li>
+          <li>Recepción 120 × 45 en paralelo a A1 (183).</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h4>Aforo para 40 m²</h4>
+        <ul>
+          <li>Máximo 4 perros a la vez, uno por parada activa.</li>
+          <li>Franjas de 15 minutos reservadas desde la app.</li>
+          <li>Unas 12 a 15 personas a la vez, a validar con el aforo de la licencia.</li>
+          <li>Entrada y salida por la misma puerta doble: el giro antihorario evita que se crucen de frente.</li>
+          <li>B3 y B5 son puertas interiores y se mantienen libres. C5 es el acceso al baño.</li>
+        </ul>
+      </div>
+    </div>
+    <h3 style="margin:48px 0 18px">Gráfica por superficie</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Superficie</th><th>Medida (cm)</th><th>Zona</th><th>Gráfico propuesto</th></tr></thead>
+        <tbody>
+          <tr><td>Escaparate</td><td>301 cristal</td><td>Fachada</td><td>Toldo de vinilo arriba y "El Mercat Pure Fresh · 70% carne fresca" abajo, con la cámara de frío y el pack detrás.</td></tr>
+          <tr><td>Ventana alcoba</td><td>170 cristal</td><td>Fachada</td><td>Trasera del fondo del fotomatón: "¿Seco o fresco? Que decida él" con el pack y una llamada a reservar.</td></tr>
+          <tr><td><b>A1</b></td><td>183 × 222</td><td>1 · Recepción</td><td>"Benvinguts al Mercat Pure Fresh", key visual y QR de check-in.</td></tr>
+          <tr><td><b>E1–E4</b> columna</td><td>68,8 × 53,3</td><td>3 · Huerta</td><td>Gráfica del +30% de frutas y verduras, con balda de cajas de olfato.</td></tr>
+          <tr><td>Alcoba</td><td>170 × 222</td><td>4 · Retratista</td><td>Fondo crema "Lo que de verdad le gusta".</td></tr>
+          <tr><td><b>D1</b></td><td>280 × 222</td><td>4 · Retratista</td><td>Muro de las 1.000 Miradas: retícula imantada con cabecera.</td></tr>
+          <tr><td><b>C4</b></td><td>142,5</td><td>4 · Retratista</td><td>Cabecera "Personaliza su comedero" y muestrario.</td></tr>
+          <tr><td><b>B4</b></td><td>280 × 222</td><td>5 · Carne</td><td>"Parada de la Carne · 70% carne fresca", pantalla del marcador y toldo.</td></tr>
+          <tr><td><b>C1</b></td><td>86</td><td>5 · Carne</td><td>"Empieza tu Reto 7 Días Fresh" con QR.</td></tr>
+          <tr><td><b>B2</b></td><td>111</td><td>6 · Premios</td><td>Panel naranja con logotipo Ultima y Plinko 70/30 integrado delante.</td></tr>
+          <tr><td><b>B1</b> chaflán</td><td>280 × 222</td><td>6 · Premios</td><td>Muro de marca: logotipo Ultima sobre marrón y key visual "Todo lo bueno de la comida fresca en un pienso".</td></tr>
+          <tr><td><b>A5</b></td><td>102 × 222</td><td>Entrada</td><td>Logotipo Ultima y "70% carne fresca" sobre naranja.</td></tr>
+          <tr><td><b>C3</b></td><td>115,5 × 222</td><td>5 · Carne</td><td>Panel verde "Reto 7 Días Fresh" con logotipo.</td></tr>
+          <tr><td>Columna E (laterales) y jambas del escaparate</td><td>48 a 67</td><td>2 y 3</td><td>Paneles verticales con logotipo en verde, naranja o marrón.</td></tr>
+          <tr><td>Resto de paramentos</td><td>altura 260</td><td>Todo el local</td><td>Zócalo marrón hasta 92 cm, filete naranja, paño crema y banda naranja superior.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- OPS, CALENDARIO, KPIs -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cols">
+      <div class="box">
+        <h3>Operativa pet-friendly</h3>
+        <ul>
+          <li>Franjas de 15 minutos con un máximo de 4 perros dentro a la vez.</li>
+          <li>"Hora tranquila" diaria para perros miedosos o reactivos, con menos música y menos aforo.</li>
+          <li>Educador canino en sala en todo momento.</li>
+          <li>Equipo por turno: recepción, tendero de la Carne, guía del Quest y operador de La Mirada, más el educador.</li>
+          <li>Suelo antideslizante, punto de agua, empapadores y kit de limpieza en cada parada.</li>
+          <li>Catas de unos 5 g en cuencos desechables, con alergias preguntadas antes en la app.</li>
+        </ul>
+      </div>
+      <div class="box warn">
+        <h3>Por validar antes de producir</h3>
+        <ul>
+          <li><b>Comparativa con Dogfy:</b> citar a un competidor requiere revisión legal. Proponemos "frente al pienso fresco congelado".</li>
+          <li><b>Marcador de la cata:</b> mostrarlo como juego, no como estudio. Legal debe aprobar la redacción.</li>
+          <li>Normativa municipal de Barcelona sobre animales en locales y licencia de la actividad.</li>
+          <li>Conservación de las muestras semi-húmedas una vez abiertas.</li>
+          <li>Funciones de la app: pasaporte con QR o NFC, geolocalización de rutas y retos.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec-head" style="margin-top:56px;margin-bottom:28px">
+      <span class="eyebrow">Calendario orientativo</span>
+      <h3>Cuatro semanas de activación alrededor del lanzamiento</h3>
+    </div>
+    <div class="timeline">
+      <div class="tl"><small>Semanas −6 a −2</small><b>Producción</b><p>Validación legal, desarrollo de la app, fabricación y montaje.</p></div>
+      <div class="tl"><small>Semanas −2 a 0</small><b>Teaser en la app</b><p>Reservas abiertas: "Tu perro tiene mesa en el Mercat".</p></div>
+      <div class="tl"><small>Semana 1</small><b>La Noche de la Cata</b><p>Apertura con prensa local y perros influencers. Marcador a cero.</p></div>
+      <div class="tl"><small>Semanas 2 y 3</small><b>Velocidad de crucero</b><p>Rutas Fresh, ranking de barrios y reto semanal de La Mirada.</p></div>
+      <div class="tl"><small>Semana 4</small><b>Revelado del mosaico</b><p>Pieza 1.000, time-lapse de cierre y premio al barrio ganador.</p></div>
+    </div>
+
+    <div class="sec-head" style="margin-top:56px;margin-bottom:24px">
+      <span class="eyebrow">Medición</span>
+      <h3>KPIs globales</h3>
+      <p class="lede">Los objetivos numéricos los fijamos con el histórico de pop-ups de Samplia.</p>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b>Tráfico</b><span>Visitas totales y porcentaje con perro</span></div>
+      <div class="kpi"><b>App</b><span>Reservas, nuevos registros y fichas de perro</span></div>
+      <div class="kpi"><b>Engagement</b><span>Pasaportes completos y tiempo medio en el local</span></div>
+      <div class="kpi"><b>Producto</b><span>Catas y muestras entregadas por tamaño</span></div>
+      <div class="kpi"><b>UGC</b><span>Vídeos y fotos compartidos, piezas del muro</span></div>
+      <div class="kpi"><b>Comunidad</b><span>Check-ins en Rutas Fresh por barrio</span></div>
+      <div class="kpi"><b>Prueba</b><span>Retos de 7 días completados y valoración media</span></div>
+      <div class="kpi"><b>Conversión</b><span>Canje del cupón de primera compra</span></div>
+    </div>
+
+    <div class="cols" style="margin-top:56px">
+      <div class="box">
+        <h3>Partidas de presupuesto</h3>
+        <ul>
+          <li>Escenografía: mostrador y toldo, cámara de frío, pasarela, snuffle pit, set de fotomatón, muro y mesa.</li>
+          <li>Gráfica: dibones, vinilos de escaparate y suelo, pack gigante.</li>
+          <li>Tecnología: pantalla, BowlCam, cámara e impresora, máquinas de Plinko y Gancho.</li>
+          <li>App: pasaporte, rutas, retos y cupón.</li>
+          <li>Staff: 4 personas por turno más el educador canino.</li>
+          <li>Producto: muestras MINI y MEDMAX, premios y bolsas.</li>
+          <li>Evento de apertura y contenido audiovisual.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Próximos pasos</h3>
+        <ol class="next">
+          <li>Validar el concepto y los tres dossiers con la marca.</li>
+          <li>Revisión legal de claims, comparativa y marcador.</li>
+          <li>Briefing a producto de la app: pasaporte, BowlCam, rutas y Reto 7 Días.</li>
+          <li>Diseño final de las gráficas y renders de detalle.</li>
+          <li>Presupuesto cerrado por partida y calendario de producción.</li>
+        </ol>
+        <p style="font-size:14px;color:var(--muted)">Mínimo viable si hay que recortar: El Perro Decide, La Mirada simplificada, Plinko y Reto 7 Días. Las Rutas Fresh pueden lanzarse después, solo en la app.</p>
+      </div>
+    </div>
+
+    <div class="refs">
+      <b style="color:var(--ink)">Referencias del estudio</b>
+      <span>Nagasawa, M. et al. (2015). Oxytocin-gaze positive loop and the coevolution of human-dog bonds. Science, 348.</span>
+      <span>Odendaal, J. &amp; Meintjes, R. (2003). Neurophysiological correlates of affiliative behaviour between humans and dogs. The Veterinary Journal, 165.</span>
+      <span>Handlin, L. et al. (2011). Short-term interaction between dogs and their owners. Anthrozoös, 24.</span>
+      <span>Schultz, W., Dayan, P. &amp; Montague, P. R. (1997). A neural substrate of prediction and reward. Science, 275.</span>
+      <span>Kivetz, R., Urminsky, O. &amp; Zheng, Y. (2006). The goal-gradient hypothesis resurrected. Journal of Marketing Research, 43.</span>
+      <span>Duranton, C. &amp; Horowitz, A. (2019). Let me sniff! Nosework induces positive judgment bias in pet dogs. Applied Animal Behaviour Science, 211.</span>
+      <span>Cook, P. F. et al. (2016). Awake canine fMRI predicts dogs' preference for praise vs food. Social Cognitive and Affective Neuroscience, 11.</span>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Propuesta creativa Samplia Barcelona para Ultima Pure Fresh · Renders 3D orientativos sobre el modelo del local · Simulaciones fotorrealistas generadas con IA a partir de esos renders (textos y logotipos aproximados) · Logotipo de ultima-affinity.com y visuales de producto del material de marca (no definitivos) · Noviembre 2026</div></footer>
